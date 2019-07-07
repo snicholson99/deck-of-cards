@@ -66,9 +66,9 @@ class App extends Component {
     }
   }
 
-  shuffleCards = (row) => {
-    this.setState({ row: row.sort(() => Math.random() - 0.5) })
-  }
+  shuffleCards = row => this.setState({ row: this.randomiseCards(row) });
+  randomiseCards = array => array.sort(() => Math.random() - 0.5);
+
   
   drawCard = (card_index, pushingRow, receivingRow) => {
     const card = pushingRow.find(card => card.index === card_index);
@@ -77,9 +77,9 @@ class App extends Component {
     this.setState({ row1, row2 })
   }
 
-  sortLowToHigh = (array) => {
-    this.setState({ array: array.sort((a, b) => a.index - b.index) });
-  }
+  sortCards = array => this.setState({ array: this.sortLowToHigh(array) });
+  sortLowToHigh = array => array.sort((a, b) => a.index - b.index);
+
 
   render(){
     const { row1, row2 } = this.state;
@@ -96,7 +96,7 @@ class App extends Component {
           </div>
           <div className="buttons">
             <button onClick={() => this.shuffleCards(row1)}>Shuffle</button>
-            <button onClick={() => this.sortLowToHigh(row1)}>Sort Cards</button>
+            <button onClick={() => this.sortCards(row1)}>Sort Cards</button>
           </div>
         </div>
       
@@ -112,7 +112,7 @@ class App extends Component {
           {row2.length > 1 && (
             <div className="buttons">
               <button onClick={() => this.shuffleCards(row2)}>Shuffle</button>
-              <button onClick={() => this.sortLowToHigh(row2)}>Sort Cards</button>
+              <button onClick={() => this.sortCards(row2)}>Sort Cards</button>
             </div>
           )}
         </div>
